@@ -1,0 +1,15 @@
+ansible -i hosts.txt all -m ping                          -- пінганути всі сервери з файлу hosts
+ansible-inventory --graph                                 -- Глянути всі сервери по групах
+
+ansible all -m ping                                       -- ping всіх серверів  
+ansible all -m setup                                     -- конфіг всіх
+ansible all -m shell  -a "uptime"            -- виконати команду на всіх серверах 
+ansible all -m command  -a "uptime"  -- те саме що і shell, але без змінних, та *  < > | ; &
+ansible all -m copy -a "src=1.txt  dest=/home/ mode=777"  -b         -- копіювання файлу в теку home, і змінити права на 777, юзаючи права sudo (-b)
+copy -a "src=1.txt dest=/home mode=644
+
+
+[prod]
+server1     ansible_host=3.123.43.131     ansible_user=ubuntu   ansible_ssh_private_key_file=/mnt/e/devops/aws/key/frankfurt-1-home.pem
+server2     ansible_host=3.70.208.83     ansible_user=ubuntu   ansible_ssh_private_key_file=/mnt/e/devops/aws/key/frankfurt-1-home.pem
+    

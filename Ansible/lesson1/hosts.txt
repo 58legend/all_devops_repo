@@ -1,0 +1,2 @@
+[simple_ec2]
+linux1      ansible_host=18.157.157.64          ansible_user=ubuntu      ansible_ssh_private_key_file="/usr/58legend/frankfurt-1-home.pem" 
