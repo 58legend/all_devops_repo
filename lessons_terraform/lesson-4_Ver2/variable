@@ -1,0 +1,11 @@
+variable "original-bucket" {
+    type = string
+    default = "58legend-orig-buck" //
+    description = "name of source bucket in AWS"
+}   
+
+variable "replication-bucket" {
+    type = string
+    default = "58legend-replica-buck" //
+    description = "name of replication bucket in AWS"
+}

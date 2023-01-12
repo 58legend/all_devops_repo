@@ -1,0 +1,4 @@
+instance_type = "t2.micro"
+region = "eu-central-1"
+ami_ec2 = "ami-0e2031728ef69a466" #Amazon Linux
+key_name = "Frankfurt eu-central-1" #Frankfurt

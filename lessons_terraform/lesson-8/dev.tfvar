@@ -1,0 +1,14 @@
+instance_type = "t2.micro"
+server_name = "Dev EC2"
+server_count = 1
+region = "eu-central-1"
+ami_ec2 = "ami-0caef02b518350c8b" #Ubuntu Linux
+key_name = "Frankfurt eu-central-1" #Frankfurt
+volume_size = 20
+
+
+#security group
+ec2_ingress_ports_default = {
+    "22"  = ["192.168.1.0/24", "10.1.1.0/24" ],
+    "443" = ["0.0.0.0/0"]
+}

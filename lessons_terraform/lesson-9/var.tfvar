@@ -1,0 +1,19 @@
+instance_type = "t2.micro"
+server_name = "lesson-9-autoscaling"
+server_count = 1
+region = "eu-central-1"
+ami_ec2 = "ami-0e2031728ef69a466" #Amazon Linux
+key_name = "Frankfurt eu-central-1" #Frankfurt
+volume_size = 10
+
+
+#security group
+ec2_ingress_ports_default = {
+    "22"  = ["192.168.1.0/24", "10.1.1.0/24" ],
+    "80" = ["0.0.0.0/0"]
+}
+
+autoscaling-availability_zones = ["eu-central-1", "eu-west-1"]
+desired_capacity = 2
+max_size = 3
+min_size = 1
