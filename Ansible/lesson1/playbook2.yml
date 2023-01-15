@@ -1,0 +1,13 @@
+---
+- name: Install apache
+  hosts: all
+  become: yes
+  
+
+  tasks:
+  - name: install apache WebServers
+    yum: name=nginx state=latest
+
+
+  - name: enabled on boot
+    service: name=nginx state=started enabled=yes enabled=yes
