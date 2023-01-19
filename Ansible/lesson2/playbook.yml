@@ -1,0 +1,32 @@
+---
+- name: Print Secret lesson-2
+  hosts: all
+  become: yes
+
+  vars:
+    message1: Rus Ni
+    message2: Peace DA!
+    haslo: Smert` moskaliam!
+
+  tasks:
+    
+  - name: Print haslo
+    debug:
+      var: haslo
+
+  - debug:
+      msg: "Slava Ukraini! {{ haslo }}"
+      
+  - debug:
+      msg: "{{ ansible_user }}"
+  
+  - set_fact: povne_haslo="{{ message1 }} {{ message2 }} {{ haslo }}"
+
+  - debug:
+      msg: "{{ povne_haslo }} {{ ansible_pkg_mgr }}"
+    
+  - shell: echo "Batko nash Bandeeeeeraa!!!"
+    register: results
+
+  - debug:
+      msg: "{{ results }}"
