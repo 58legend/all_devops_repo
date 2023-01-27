@@ -1,0 +1,24 @@
+---
+- name: Lesson3, Nginx + русні пізда, частина 2
+  hosts: all
+  become: yes
+  
+  tasks:
+
+
+  - name: Chahge NGINX settings --  /home/ubuntu/fucking/; to  root /home/ubuntu/russnya/; FOLDER 2
+    replace:
+      path: /etc/nginx/sites-enabled/default
+      regexp: "root /home/ubuntu/fucking;"
+      replace: "root /home/ubuntu/russnya;"
+    notify: restart Nginx
+
+  - name: sleep for 120 seconds and continue with play
+    wait_for:
+      timeout: 20
+ #   delegate_to: localhost
+
+  handlers:
+  - name: restart Nginx
+    service: name=nginx state=restarted  
+    

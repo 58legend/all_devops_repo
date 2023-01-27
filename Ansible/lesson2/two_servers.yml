@@ -1,0 +1,51 @@
+---
+- name: One server on Ubuntu, and one server on Amazon linux
+  hosts: all
+  become: yes
+
+  vars: 
+    source_link: '<center><img src="https://c1.cprnt.com/storage/i/40/4d/3e/2a/2d42434c942c44c3e1f1f0c0/acb66f351e2d588feee7fb0c68f2c0b9.png" alt="Rus - HI! Peace - Da!">'
+   
+
+  tasks:
+  - name: Check and print OS Family
+    debug: var=ansible_os_family
+
+  - block: # ========================= Ubuntu/Debian Linux
+      
+      - name: Install apache2 
+        apt: name=apache2 state=latest
+      
+
+      - name: Add Rusni pisda 
+        ansible.builtin.lineinfile:
+          path: /var/www/html/index.html
+          line: "{{ source_link }}"
+          create: yes
+        notify: restart Apache
+    when: ansible_os_family == "Debian"
+
+  - block: # ========================= Amazon/Centos/RedHat Linux
+      
+      - name: Install httpd 
+        yum: name=httpd state=latest
+      
+      - name: Start httpd
+        service: name=httpd state=started enabled=yes
+
+      - name: Add Rusni pisda 
+        ansible.builtin.lineinfile:
+          path: /var/www/html/index.html
+          line: "{{ source_link }}"
+          create: yes
+        notify: restart httpd
+    when: ansible_os_family == "RedHat"
+
+  handlers:
+  - name: restart Apache
+    service: name=apache2 state=restarted
+
+  - name: restart HTTPD
+    service: name=httpd state=restarted
+
+
