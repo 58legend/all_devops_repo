@@ -1,0 +1,4 @@
+---
+# defaults file for first-role
+    html1_link: "https://less-6.s3.eu-central-1.amazonaws.com/index.html"
+    html2_link: "https://less-6.s3.eu-central-1.amazonaws.com/index.html"

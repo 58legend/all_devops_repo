@@ -1,0 +1,9 @@
+---
+- name: Lesson3, Nginx + русні пізда, частина 1
+  hosts: all
+  become: yes
+    
+
+  roles:
+    - { role: first-role, when: ansible_system == 'Linux' }  
+  
