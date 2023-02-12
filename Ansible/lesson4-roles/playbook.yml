@@ -5,3 +5,4 @@
 
   roles:
     - { role: install, when: ansible_os_family == 'Debian' }  
+    - { role: deploy, when: ansible_os_family == 'Debian' }  

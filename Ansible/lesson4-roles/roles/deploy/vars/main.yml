@@ -1,2 +1,4 @@
 ---
 # vars file for deploy
+site_text: "русні пиздець"
+site_font_color: "red"
