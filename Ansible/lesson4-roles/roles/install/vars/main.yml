@@ -1,0 +1,4 @@
+---
+# vars file for install
+
+nginx_location_conf: "/var/www/html"

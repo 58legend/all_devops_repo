@@ -1,0 +1,7 @@
+---
+- name: Lesson4
+  hosts: all
+  become: yes
+
+  roles:
+    - { role: install, when: ansible_os_family == 'Debian' }  

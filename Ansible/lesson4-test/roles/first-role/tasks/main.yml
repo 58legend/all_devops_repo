@@ -1,0 +1,41 @@
+---
+# tasks file for first-role
+  - name: install Nginx WebServers
+    apt: name=nginx state=latest
+
+  - name: Start Nginx
+    service: name=nginx state=started  
+    
+  - name: Create a directory if it does not exist DIRECTORY 1
+    file:
+      path: /home/ubuntu/fucking
+      state: directory
+      mode: '0755'
+
+  - name: Create a directory if it does not exist DIRECTORY 2
+    file:
+      path: /home/ubuntu/russnya
+      state: directory
+      mode: '0755'
+
+
+
+  - name: Copy index.html file with owner and permissions DIRECTORY 1
+    get_url:
+      url: https://less-6.s3.eu-central-1.amazonaws.com/index.html
+      dest: /home/ubuntu/fucking/index.html
+      mode: '0644'
+  
+  - name: Copy index.html file with owner and permissions DIRECTORY 2
+    get_url:
+      url: https://less-6.s3.eu-central-1.amazonaws.com/2/index.html
+      dest: /home/ubuntu/russnya/index.html
+      mode: '0644'
+
+
+  - name: Chahge  root /var/www/html/; to  root /home/ubuntu/fucking/; DIRECTORY 1
+    replace:
+      path: /etc/nginx/sites-enabled/default
+      regexp: "root /var/www/html;"
+      replace: "root /home/ubuntu/fucking;"
+    notify: restart Nginx
