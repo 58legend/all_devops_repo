@@ -1,2 +1,37 @@
 ---
 # tasks file for install
+
+  - name: Update and upgrade apt packages
+    apt:
+      upgrade: "yes"
+      update_cache: yes
+      cache_valid_time: 86400 #One day
+      
+  - name: Install pack
+    apt: 
+      name: "{{ item }}"
+      state: latest
+    #msg: "Install {{ item }}"
+    loop: #в версіях до 2.4 включно використовувалось with_items замість loop 
+      - "nano"
+      - "nginx"
+      - "mc"
+
+
+  - name: Start Nginx
+    service: name=nginx state=started 
+
+  - name: Remove old-config file
+    file:
+      path: /etc/nginx/sites-available/default
+      state: absent
+ 
+
+
+  - name: Template a file to /etc/nginx/sites-avalible/default
+    template:
+      src: nginx.j2
+      dest: /etc/nginx/sites-available/default
+      owner: root
+      group: root
+      mode: '0644'
