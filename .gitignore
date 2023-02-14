@@ -1,3 +1,8 @@
+
+#terraform temp files
 *.tfstate
 *.tfstate.backup
 .terraform*
+
+#terraform template generated files
+#simpleEC2_hosts
