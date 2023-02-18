@@ -1,2 +1,19 @@
 ---
 # tasks file for deploy
+
+  - name: Create a directory /var/www/html/ruszda
+    file:
+      path: /var/www/html/ruszda
+      state: directory
+      mode: '0755'
+
+
+  - name: Template a file to /var/www/html/ruszda
+    template:
+      src: index.j2
+      dest: /var/www/html/ruszda/index.html
+      owner: root
+      group: root
+      mode: '0644'
+    notify: restart_nginx
+

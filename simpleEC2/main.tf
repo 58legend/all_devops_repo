@@ -18,7 +18,12 @@ resource "aws_instance" "ansible" {
 resource "aws_security_group" "sg-ansible-simple" {
 
   name = "EC2 for ansible"
-
+  lifecycle {
+    create_before_destroy = true
+  }
+    tags = {
+    Name = "SecurityGroup for Ansible"
+  }
   dynamic ingress {
     for_each = var.ec2_ingress_ports_default
     content {
@@ -42,6 +47,3 @@ resource "aws_security_group" "sg-ansible-simple" {
 
 
 
-output "ec2_global_ips" {
-  value = ["${aws_instance.ansible.*.public_ip}"]
-}

@@ -4,7 +4,7 @@ server_count = 1
 region = "eu-central-1"
 #ami_ec2 = "ami-0e2031728ef69a466" #Amazon Linux
 ami_ec2 = "ami-0b81e95bb0a06ea8c" #Ubuntu Linux
-key_name = "work_linux_frankfurt.key" #Frankfurt
+key_name = "Frankfurt-eu-central" #Frankfurt
 
 
 
