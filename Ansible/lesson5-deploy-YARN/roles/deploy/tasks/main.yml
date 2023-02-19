@@ -1,0 +1,70 @@
+---
+# tasks file for deploy
+
+  - name: Update and upgrade apt packages
+    apt:
+      upgrade: "yes"
+      update_cache: yes
+      cache_valid_time: 86400 #One day
+      
+  - name: Install pack
+    apt: 
+      name: "{{ item }}"
+      state: latest
+    #msg: "Install {{ item }}"
+    loop: #в версіях до 2.4 включно використовувалось with_items замість loop 
+      - "nodejs"
+      - "npm"
+      - "git"
+      - "nano"
+      - "nginx"
+      - "mc"
+    notify: Start Nginx
+
+  - name: Chahge  root /var/www/html/; to  live_folder for project
+    replace:
+      path: /etc/nginx/sites-enabled/default
+      regexp: "root /var/www/html;"
+      replace: "root {{ live_folder }}{{doc_root}};"
+    notify: Restart Nginx
+    
+  - debug:
+      msg: "root {{ live_folder }}/{{doc_root}};" #Checking the output
+
+#Clone repo and Build project by YARN  (info by this modeule: https://rossbulat.medium.com/ansible-automating-app-build-and-deployment-from-a-github-repository-7d613985f686)
+  - git:
+      repo: "{{ repo_name }}"
+      dest: "{{ repo_folder }}"
+      update: yes
+  - name: Install "YARN" by npm node.js package globally.
+    npm:
+      name: yarn
+      global: yes
+
+  - name: Install dependencies
+    yarn:
+      path: "{{ repo_folder }}"
+
+  - name: Build project
+    command: yarn build
+    args:
+      chdir: "{{ repo_folder }}"
+    
+  - name: Copy build to live directory
+    command: cp -TRv {{ doc_root }} {{ live_folder }}
+    args:
+      chdir: "{{ repo_folder }}"
+      creates: "{{ live_folder }}"
+    register: command_output
+
+  - debug:
+      msg: "{{ doc_root }} {{ live_folder }}"
+
+#This output link for BroUser
+  - name: Check web-site
+    uri:
+      url: http://169.254.169.254/latest/meta-data/public-ipv4
+      #return_content: yes
+    register: results_public_ip
+  - debug:
+      msg: "For check web-site: CTRL + CLICK HERE ======>>> http://{{ results_public_ip }}/"

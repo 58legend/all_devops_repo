@@ -1,0 +1,7 @@
+---
+# vars file for deploy
+#Git variables
+    repo_name : https://github.com/taniarascia/vue-tutorial.git
+    repo_folder : /tmp/git-temp #temp folder for git
+    live_folder :  /var/www/html #folder for ready project (can be created). Example: "/var/www/html/folder"
+    doc_root : dist #in which directory the file is located index.html/index.php etc.

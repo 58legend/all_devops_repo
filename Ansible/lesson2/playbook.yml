@@ -26,7 +26,7 @@
       msg: "{{ povne_haslo }} {{ ansible_pkg_mgr }}"
     
   - shell: echo "Batko nash Bandeeeeeraa!!!"
-    register: results
+    register: results #вивести результат команди
 
   - debug:
       msg: "{{ results }}"

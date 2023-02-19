@@ -5,7 +5,7 @@ region = var.region #Frankfurt eu-central-1 default
 resource "aws_instance" "ansible" {
   ami           =    var.ami_ec2 #Amazon linux
   instance_type = var.instance_type
-  count = var.server_count
+  #count = var.server_count
   key_name = var.key_name
   vpc_security_group_ids =  [aws_security_group.sg-ansible-simple.id]
   tags = {
