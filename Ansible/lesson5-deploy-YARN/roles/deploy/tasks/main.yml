@@ -25,7 +25,7 @@
     replace:
       path: /etc/nginx/sites-enabled/default
       regexp: "root /var/www/html;"
-      replace: "root {{ live_folder }}{{doc_root}};"
+      replace: "root {{ live_folder }}/{{doc_root}};"
     notify: Restart Nginx
     
   - debug:
@@ -50,21 +50,23 @@
     args:
       chdir: "{{ repo_folder }}"
     
-  - name: Copy build to live directory
-    command: cp -TRv {{ doc_root }} {{ live_folder }}
-    args:
-      chdir: "{{ repo_folder }}"
-      creates: "{{ live_folder }}"
-    register: command_output
+
+
+  - name: Copy file with owner and permissions
+    copy:
+      src: "{{ repo_folder }}/{{ doc_root }}"
+      dest: "{{ live_folder }}" #/{{ doc_root }}
+      remote_src: true
+      directory_mode:
 
   - debug:
       msg: "{{ doc_root }} {{ live_folder }}"
 
+
 #This output link for BroUser
-  - name: Check web-site
-    uri:
-      url: http://169.254.169.254/latest/meta-data/public-ipv4
-      #return_content: yes
+  - name: Build project
+    shell: curl -s http://169.254.169.254/latest/meta-data/public-ipv4
+    # return_content: yes
     register: results_public_ip
   - debug:
-      msg: "For check web-site: CTRL + CLICK HERE ======>>> http://{{ results_public_ip }}/"
+      msg: "For check web-site: CTRL + CLICK HERE ======>>> http://{{ results_public_ip.stdout }}/"
