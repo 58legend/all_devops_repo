@@ -20,7 +20,7 @@ services:
       - "58158:80"
     volumes:
       - vue-tutorial:/usr/share/nginx/html
-#      - ./nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./nginx.conf:/etc/nginx/conf.d/default.conf:ro
       
 volumes:
   vue-tutorial:
